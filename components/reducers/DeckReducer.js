@@ -15,7 +15,7 @@ const DeckReducer = (state = [], action) => {
         }
       };
       case ADD_CARD:
-        const {question, answer, deck, correctAnswer} = action.payload
+        const {question, answer, deck, correctAnswer} = action.payload.data
         return {
             ...state,
             [deck]: {
@@ -26,6 +26,7 @@ const DeckReducer = (state = [], action) => {
                 }]
             }
         }
+
     default:
       return state;
   }

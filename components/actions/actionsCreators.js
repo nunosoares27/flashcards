@@ -1,5 +1,5 @@
-import { GET_DECKS, ADD_DECK } from './actionTypes'
-import { getDecks, saveDeckTitle } from '../../utils/api'
+import { GET_DECKS, ADD_DECK, ADD_CARD } from './actionTypes'
+import { getDecks, saveDeckTitle, addCardToDeck } from '../../utils/api'
 
 export const getDecksAPI = async() => {
     const decksData =  await getDecks().then(response => response)
@@ -14,5 +14,14 @@ export const addDeckAPI = async (title) => {
     return ({
         type: ADD_DECK,
         payload: title
+    })
+}
+
+export const addCardAPI = async (data) => {
+    console.log('data',data)
+    await addCardToDeck(data.deck,{question: data.question, answer: data.answer, correctAnswer: data.correctAnswer}).then(response => response)
+    return ({
+        type: ADD_CARD,
+        payload: {data}
     })
 }

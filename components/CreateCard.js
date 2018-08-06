@@ -4,7 +4,7 @@ import { Container, Header, Text, Content, Form, Item, Input, Label, Button, Lef
 // import {saveDeckTitle} from '../utils/api';
 import {connect} from 'react-redux'
 import { bindActionCreators} from 'redux'
-import {}  from './actions/actionsCreators'
+import {addCardAPI}  from './actions/actionsCreators'
 
 class CreateCard extends Component {
   state = {
@@ -12,8 +12,19 @@ class CreateCard extends Component {
     answer:'',
     correctAnswer: '',
   }
+
+  submitCard = (deck) => {
+      const { question, answer, correctAnswer} = this.state
+    this.props.addCardAPI({question, answer, correctAnswer, deck
+    }).catch(err => err)
+    this.setState({
+        question: '', answer: '', correctAnswer: ''
+    })
+  }
   
     render() {
+       
+        const deckName = this.props.match.params.deck
     return (
       <Container style={{ width: Dimensions.get('window').width,
 height: Dimensions.get('window').height}}>
@@ -41,7 +52,7 @@ height: Dimensions.get('window').height}}>
             </Item>
              <View style={{ flex: 1, flexDirection: 'row'}}>
                 <Button dark style={{ marginLeft: 15, marginRight: 15}} ><Text>Cancel</Text></Button>
-                <Button success onPress={() => this.props.addDeckAPI(this.state.title).catch(err => err)}><Text>Send</Text></Button>
+                <Button success onPress={() => this.submitCard(deckName)}><Text>Send</Text></Button>
               </View>
           </Form>
         </Content>
@@ -52,7 +63,7 @@ height: Dimensions.get('window').height}}>
 
 const mapDispatchToProps = (dispatch) => {
    return bindActionCreators(
-    { },
+    { addCardAPI },
     dispatch
   );
 }

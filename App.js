@@ -22,7 +22,7 @@ export default class App extends React.Component {
          <Route exact path="/" component={Tabs}/>
          <Route exact path="/deck/:id" component={Deck} />
          <Route exact path="/quizz"component={CardC} />
-         <Route exact path="/addcard" component={CreateCard} />
+         <Route exact path="/addcard/:deck" component={CreateCard} />
       </View>
       </NativeRouter>
       </Provider>
