@@ -14,6 +14,8 @@ export class CardC extends Component {
         this.state = {
             showAnswer: true,
             questionNumber: 0,
+            correct: 0,
+            incorrect: 0,
         }
          this.onShowAnswer = this.onShowAnswer.bind(this)
           this.rotateAnimation = new Animated.Value(0)
@@ -64,8 +66,37 @@ export class CardC extends Component {
       async componentDidMount(){
        this.props.getDecksAPI().catch(err => err)
     }
+
+    submitAnswer = (answer) => {
+        const questionNumber = this.state.questionNumber
+        const decks = this.props.decks
+        const deck = this.props.match.params.id
+        const correct = decks[deck].questions[questionNumber].correctAnswer.toLowerCase()
+
+        if(answer === correct) {
+            this.setState({
+                correct: this.state.correct + 1
+            })
+        }
+        else {
+            this.setState({
+                incorrect: this.state.incorrect + 1
+            })
+        }
+
+        this.setState({
+            questionNumber: this.state.questionNumber + 1,
+
+        })
+
+        this.setState({
+            showAnswer: !this.state.showAnswer
+        })
+    }
     
     render(){
+        console.log('correct',this.state.correct)
+        console.log('incorrect',this.state.incorrect)
       //  console.log('card',this.props.match.params.id)
         const interpolateRotation = this.rotateAnimation.interpolate({
             inputRange: [0,1],
@@ -145,12 +176,15 @@ height: Dimensions.get('window').height}} >
                                     {decks[deck].questions[questionNumber].answer}
                             </Animated.Text>
                      <Animated.View  style={[rotateTextStyle, fadeStyle, {flex: 1, flexDirection: 'row'}]}>
-                             <Button block danger style={{ marginTop: 15, marginBottom: 15, marginRight: 15}} onPress={this.onShowAnswer}>
+                             <Button block danger style={{ marginTop: 15, marginBottom: 15, marginRight: 15}} onPress={()=> this.submitAnswer('false')}>
                                   <Text>Incorrect</Text>
                                  </Button>
-                                 <Button block success style={{ marginTop: 15, marginBottom: 15 }} onPress={this.onShowAnswer}>
+                                 <Button block success style={{ marginTop: 15, marginBottom: 15 }} onPress={()=> this.submitAnswer('true')}>
                                   <Text>Correct</Text>
                                  </Button>
+                                  {/*<Button block dark style={{ marginTop: 15, marginBottom: 15}} onPress={this.onShowAnswer}>
+                                 <Text>Show Answer</Text>
+                                 </Button>*/}
                           </Animated.View>
                         </Body>
                         </CardItem>

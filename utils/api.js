@@ -55,7 +55,7 @@ export const getData = () => {
 }
  
 export function getDecks(){
-//  return AsyncStorage.clear() // use this to clear AsyncStorage
+  // return AsyncStorage.clear() // use this to clear AsyncStorage
     return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
         .then(results => {
             if(results === null) {
