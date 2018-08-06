@@ -47,7 +47,7 @@ height: Dimensions.get('window').height}} >
                             <Text>
                                 { this.props.decks[this.props.match.params.id] && this.props.decks[this.props.match.params.id].questions.length}
                             </Text>
-                             <Button block dark style={{ marginTop: 15, marginBottom: 15}}><Text>Add Card</Text></Button>
+                             <Button block dark style={{ marginTop: 15, marginBottom: 15}} onPress={() => this.props.history.push(`/addcard`)}><Text>Add Card</Text></Button>
                             <Button block success onPress={() => this.props.history.push(`/quizz`)}><Text>Start Quizz</Text></Button>
                         </Body>
                         </CardItem>

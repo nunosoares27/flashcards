@@ -8,6 +8,7 @@ import MainReducer from './components/reducers/MainReducer'
 import Deck from './components/Deck'
 import Tabs from './components/Tabs'
 import CardC from './components/CardC'
+import CreateCard from './components/CreateCard'
 
 export default class App extends React.Component {
   
@@ -21,9 +22,7 @@ export default class App extends React.Component {
          <Route exact path="/" component={Tabs}/>
          <Route exact path="/deck/:id" component={Deck} />
          <Route exact path="/quizz"component={CardC} />
-       {/*<Tabs />*/}
-       {/*<Deck />*/}
-       {/*<CardC />*/}
+         <Route exact path="/addcard" component={CreateCard} />
       </View>
       </NativeRouter>
       </Provider>
