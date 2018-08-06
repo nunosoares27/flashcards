@@ -14,7 +14,6 @@ export class ListDecks extends Component {
     }
     
     render(){
-     console.log(Object.values(this.props.decks))
        
         return (
              <Content>
