@@ -121,6 +121,35 @@ export class CardC extends Component {
         const deck = this.props.match.params.id
         const number = this.state.questionNumber + 1
 
+
+        if(questionNumber === decks[deck].questions.length){
+            return (
+                <View>
+                     <Container style={{ width: Dimensions.get('window').width,
+height: Dimensions.get('window').height}} >
+                 <Header >
+                        <Left>
+                            <Button transparent onPress={() => this.props.history.push('/')}>
+                            <Icon name='arrow-back' />
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Title>FlashCards</Title>
+                        </Body>
+                        <Right />
+                 </Header>   
+                  <Content contentContainerStyle={{width: Dimensions.get('window').width,
+height: Dimensions.get('window').height/2, justifyContent: 'center',alignItems: 'center'}}> 
+                    {
+                        this.state.correct > this.state.incorrect ? <Text style={{fontSize: 90}}>😁</Text>:<Text style={{fontSize: 90}}>😩</Text>
+                    }
+                    <Text style={{ fontSize: 20}}>You got {this.state.correct} out of {decks[deck].questions.length}</Text>
+                    </Content>
+                    </Container>
+                </View>
+            )
+        }
+
         return(
             <Container style={{ width: Dimensions.get('window').width,
 height: Dimensions.get('window').height}} >

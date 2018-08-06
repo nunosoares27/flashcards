@@ -26,7 +26,11 @@ class NewDeck extends Component {
             </Item>
              <View style={{ flex: 1, flexDirection: 'row'}}>
                 <Button dark style={{ marginLeft: 15, marginRight: 15}} ><Text>Cancel</Text></Button>
-                <Button success onPress={() => this.props.addDeckAPI(this.state.title).catch(err => err)}><Text>Send</Text></Button>
+                <Button success onPress={() => {
+                  this.props.addDeckAPI(this.state.title).catch(err => err); 
+                  this.setState({
+                      title: '',
+                  })} }><Text>Send</Text></Button>
               </View>
           </Form>
         </Content>
