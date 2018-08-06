@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import { View, Dimensions, Alert, Animated } from 'react-native';
 import { withRouter} from 'react-router-native'
+import {connect} from 'react-redux'
+import { bindActionCreators} from 'redux'
+import { getDecksAPI } from './actions/actionsCreators'
 import { Font, AppLoading } from "expo";
 import { Container, Header, Content, Text, Left, Body, Title, Right, Card, CardItem, Button, Icon, } from 'native-base';
 
@@ -10,6 +13,7 @@ export class CardC extends Component {
         super(props);
         this.state = {
             showAnswer: true,
+            questionNumber: 0,
         }
          this.onShowAnswer = this.onShowAnswer.bind(this)
           this.rotateAnimation = new Animated.Value(0)
@@ -56,8 +60,13 @@ export class CardC extends Component {
   //this.position = new Animated.Value(0)
 
      }
+
+      async componentDidMount(){
+       this.props.getDecksAPI().catch(err => err)
+    }
     
     render(){
+      //  console.log('card',this.props.match.params.id)
         const interpolateRotation = this.rotateAnimation.interpolate({
             inputRange: [0,1],
             outputRange: ['0deg', '180deg'],
@@ -76,13 +85,11 @@ export class CardC extends Component {
             }]
         }
 
-      var data = {
-      deck: 'Redux',
-      question: 'Redux is responsabile to Manage the State?',
-      answer: 'No, it\'s used for funny moments',
-      currentQuestion: 1,
-      remainingQuestions:4
-    }
+        const questionNumber = this.state.questionNumber
+        const decks = this.props.decks
+        const deck = this.props.match.params.id
+        const number = this.state.questionNumber + 1
+
         return(
             <Container style={{ width: Dimensions.get('window').width,
 height: Dimensions.get('window').height}} >
@@ -103,12 +110,12 @@ height: Dimensions.get('window').height}} >
                      <Animated.View style={[animatedStyle]} >
                      <Card>
                         <CardItem header style={{justifyContent: 'center',alignItems: 'center'}}>
-                         <Animated.Text style={[rotateTextStyle]}>{data.deck}</Animated.Text>
+                         <Animated.Text style={[rotateTextStyle]}>{decks[deck].title}</Animated.Text>
                         </CardItem>
                         <CardItem>
                         <Body style={{justifyContent: 'center',alignItems: 'center',}}>
                             <Animated.Text style={[fadeStyle, rotateTextStyle]}>
-                                    {data.question}
+                                    {decks[deck].questions[questionNumber].question}
                             </Animated.Text>
                             <Animated.View  style={[rotateTextStyle, fadeStyle]}>
                              <Button block dark style={{ marginTop: 15, marginBottom: 15}} onPress={this.onShowAnswer}>
@@ -119,7 +126,7 @@ height: Dimensions.get('window').height}} >
                         </CardItem>
                          <Animated.View  style={[rotateTextStyle, fadeStyle]}>
                          <CardItem footer>
-                            <Text>{data.currentQuestion} | {data.remainingQuestions}</Text>
+                            <Text>{number} | {decks[deck].questions.length}</Text>
                         </CardItem>
                         </ Animated.View>
                      </Card>
@@ -130,12 +137,12 @@ height: Dimensions.get('window').height}} >
                      <Animated.View style={[animatedStyle]} >
                      <Card>
                         <CardItem header style={{justifyContent: 'center',alignItems: 'center',}}>
-                        <Animated.Text style={[ rotateTextStyle]}>{data.deck}</Animated.Text>
+                        <Animated.Text style={[ rotateTextStyle]}>{decks[deck].title}</Animated.Text>
                         </CardItem>
                         <CardItem>
                         <Body style={{justifyContent: 'center',alignItems: 'center',}}>
                             <Animated.Text style={[fadeStyle, rotateTextStyle]}>
-                                    {data.answer}
+                                    {decks[deck].questions[questionNumber].answer}
                             </Animated.Text>
                      <Animated.View  style={[rotateTextStyle, fadeStyle, {flex: 1, flexDirection: 'row'}]}>
                              <Button block danger style={{ marginTop: 15, marginBottom: 15, marginRight: 15}} onPress={this.onShowAnswer}>
@@ -149,7 +156,7 @@ height: Dimensions.get('window').height}} >
                         </CardItem>
                          <Animated.View  style={[rotateTextStyle, fadeStyle]}>
                         <CardItem footer>
-                            <Text>{data.currentQuestion} | {data.remainingQuestions}</Text>
+                            <Text>{number} | {decks[deck].questions.length}</Text>
                         </CardItem>
                         </Animated.View>
                      </Card>
@@ -164,4 +171,13 @@ height: Dimensions.get('window').height}} >
     }
 }
 
-export default CardCwithRouter = withRouter(CardC)
+const mapStateToProps = (state) => {
+       return {decks: state.decks}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({getDecksAPI }, dispatch)
+  
+}
+
+export default CardCwithRouter = withRouter(connect(mapStateToProps, mapDispatchToProps)(CardC))
