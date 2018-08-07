@@ -25,12 +25,16 @@ class NewDeck extends Component {
               <Input placeholder='Insert Title Here...' value={this.state.title} onChangeText={(title) => this.setState({title: title}) } />
             </Item>
              <View style={{ flex: 1, flexDirection: 'row'}}>
-                <Button dark style={{ marginLeft: 15, marginRight: 15}} ><Text>Cancel</Text></Button>
-                <Button success onPress={() => {
+                <Button dark style={{ marginLeft: 15, marginRight: 15}} onPress={() => this.setState({ title: '' })} ><Text>Cancel</Text></Button>
+                {this.state.title !== ''? 
+                 <Button success onPress={() => {
                   this.props.addDeckAPI(this.state.title).catch(err => err); 
                   this.setState({
                       title: '',
-                  })} }><Text>Send</Text></Button>
+                  })} }><Text>Send</Text></Button> :
+                   <Button disabled><Text>Send</Text></Button>
+                }
+               
               </View>
           </Form>
         </Content>
