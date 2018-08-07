@@ -17,7 +17,7 @@ const initialData = {
                 correctAnswer: 'true'
             },
             {
-                question: 'Redux was created by Anguler Team?',
+                question: 'Redux was created by Angular Team?',
                 answer: 'That/s true.',
                 correctAnswer: 'false'
             }

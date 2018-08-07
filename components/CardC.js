@@ -92,6 +92,29 @@ export class CardC extends Component {
         this.setState({
             showAnswer: !this.state.showAnswer
         })
+
+
+          Animated.sequence([
+            Animated.timing(this.fadeAnimation, {
+          toValue: 0,
+          duration: 50
+      }), 
+         Animated.timing(this.rotateAnimation, {
+          toValue: !this.state.showAnswer,
+          duration: 500
+      }),
+         
+    //    Animated.timing(this.rotateText, {
+    //       toValue: 0,
+    //       duration: 1500
+    //   }),
+       Animated.timing(this.fadeAnimation, {
+          toValue: 1,
+          duration: 50
+      }), 
+
+     ]).start()
+
     }
     
     render(){
@@ -124,7 +147,7 @@ export class CardC extends Component {
 
         if(questionNumber === decks[deck].questions.length){
             const QuestionPercentage = 100 / decks[deck].questions.length
-            const AnswerPercentage = this.state.correct * QuestionPercentage
+            const AnswerPercentage = Math.floor(this.state.correct * QuestionPercentage)
             console.log(QuestionPercentage)
             return (
                 <View>
