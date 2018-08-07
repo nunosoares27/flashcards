@@ -123,6 +123,9 @@ export class CardC extends Component {
 
 
         if(questionNumber === decks[deck].questions.length){
+            const QuestionPercentage = 100 / decks[deck].questions.length
+            const AnswerPercentage = this.state.correct * QuestionPercentage
+            console.log(QuestionPercentage)
             return (
                 <View>
                      <Container style={{ width: Dimensions.get('window').width,
@@ -143,6 +146,8 @@ height: Dimensions.get('window').height/2, justifyContent: 'center',alignItems: 
                     {
                         this.state.correct > this.state.incorrect ? <Text style={{fontSize: 90}}>😁</Text>:<Text style={{fontSize: 90}}>😩</Text>
                     }
+
+                   <Text style={{ fontSize: 20}}>{ AnswerPercentage } %</Text>
                     <Text style={{ fontSize: 20}}>You got {this.state.correct} out of {decks[deck].questions.length}</Text>
                     </Content>
                     </Container>
