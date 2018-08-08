@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Dimensions, Alert } from 'react-native';
 import { Container, Header, Text, Content, Form, Item, Input, Label, Button, Left, Body, Title, Right, Icon , Picker} from 'native-base';
 // import {saveDeckTitle} from '../utils/api';
+import { withRouter } from 'react-router-native'
 import {connect} from 'react-redux'
 import { bindActionCreators} from 'redux'
 import {addCardAPI}  from './actions/actionsCreators'
@@ -13,20 +14,15 @@ class CreateCard extends Component {
     correctAnswer: 'notValid',
   }
 
-  submitCard = (deck) => {
+  submitCard = async(deck) => {
       const { question, answer, correctAnswer} = this.state
-    this.props.addCardAPI({question, answer, correctAnswer, deck
+  await  this.props.addCardAPI({question, answer, correctAnswer, deck
     }).catch(err => err)
     this.setState({
         question: '', answer: '', correctAnswer: ''
     })
+    this.props.history.push(`/deck/${deck}`)
   }
-  
-//    onValueChange(value) {
-//     this.setState({
-//       selected: value
-//     });
-//   }
 
     render() {
         const deckName = this.props.match.params.deck
@@ -35,7 +31,7 @@ class CreateCard extends Component {
 height: Dimensions.get('window').height}}>
                  <Header hasTabs>
                        <Left>
-                            <Button transparent onPress={() => this.props.history.push('/')}>
+                            <Button transparent onPress={() => this.props.history.push(`/deck/${deckName}`)}>
                             <Icon name='arrow-back' />
                             </Button>
                         </Left>
@@ -88,4 +84,4 @@ const mapDispatchToProps = (dispatch) => {
   );
 }
 
-export default connect(null, mapDispatchToProps)(CreateCard)
+export default CreateCardwithRouter = withRouter(connect(null, mapDispatchToProps)(CreateCard))
