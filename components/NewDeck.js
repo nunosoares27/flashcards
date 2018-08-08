@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, Dimensions, Alert } from 'react-native';
 import { Container, Header, Text, Content, Form, Item, Input, Label, Button } from 'native-base';
 // import {saveDeckTitle} from '../utils/api';
+import { withRouter } from 'react-router-native'
 import {connect} from 'react-redux'
 import { bindActionCreators} from 'redux'
 import { addDeckAPI } from './actions/actionsCreators'
 
-class NewDeck extends Component {
+export class NewDeck extends Component {
   state = {
     title: ''
   }
@@ -27,11 +28,17 @@ class NewDeck extends Component {
              <View style={{ flex: 1, flexDirection: 'row'}}>
                 <Button dark style={{ marginLeft: 15, marginRight: 15}} onPress={() => this.setState({ title: '' })} ><Text>Cancel</Text></Button>
                 {this.state.title !== ''? 
-                 <Button success onPress={() => {
-                  this.props.addDeckAPI(this.state.title).catch(err => err); 
+                 <Button success onPress={async() => 
+                   {
+                     const decktitle = this.state.title
+              await this.props.addDeckAPI(this.state.title).catch(err => err); 
                   this.setState({
                       title: '',
-                  })} }><Text>Send</Text></Button> :
+                  })
+                 this.props.history.push(`/deck/${decktitle}`)
+                   }
+                  
+                    }><Text>Send</Text></Button> :
                    <Button disabled><Text>Send</Text></Button>
                 }
                
@@ -50,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   );
 }
 
-export default connect(null, mapDispatchToProps)(NewDeck)
+export default NewDeckwithRouter = withRouter(connect(null, mapDispatchToProps)(NewDeck))

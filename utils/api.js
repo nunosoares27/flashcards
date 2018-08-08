@@ -1,6 +1,8 @@
 import {AsyncStorage} from 'react-native'
+import { Notifications, Permissions } from 'expo'
 
 const FLASHCARDS_STORAGE_KEY = 'flashcards: decks'
+const NOTIFICATION_KEY = 'flashcards: notifications'
 
 const initialData = {
     Redux: {
@@ -83,3 +85,91 @@ export function addCardToDeck(name, card){
         return results
     })
 }
+
+// Notificiation session for notify the user everyday
+
+// export function clearLocalNotification () {
+//   return AsyncStorage.removeItem(NOTIFICATION_KEY)
+//     .then(Notifications.cancelAllScheduledNotificationAsync)
+// }
+
+// function createNotification () {
+//   return {
+//     title: 'Log your stats!',
+//     body: "👋 don't forget to log your stats for today!",
+//     ios: {
+//       sound: true,
+//     },
+//     android: {
+//       sound: true,
+//       priority: 'high',
+//       sticky: false,
+//       vibrate: true,
+//     }
+//   }
+// }
+
+// export function setLocalNotification () {
+//   AsyncStorage.getItem(NOTIFICATION_KEY)
+//     .then(JSON.parse)
+//     .then((data) => {
+//       if (data === null) {
+//         Permissions.askAsync(Permissions.NOTIFICATIONS)
+//           .then(({ status }) => {
+//             if (status === 'granted') {
+//               Notifications.cancelAllScheduledNotificationAsync()
+
+//               let tomorrow = new Date()
+//               tomorrow.setDate(tomorrow.getDate() + 1)
+//               tomorrow.setHours(20)
+//               tomorrow.setMintutes(0)
+
+//               Notifications.scheduleLocalNotificationAsync(
+//                 createNotification(),
+//                 {
+//                   time: tomorrow,
+//                   repeat: 'day',
+//                 }
+//               )
+
+//               AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+//             }
+//           })
+//       }
+//     })
+// }
+
+
+
+// let t = new Date();
+// t.setSeconds(t.getSeconds() + 10);
+// const schedulingOptions = {
+//     time: t, // (date or number) — A Date object representing when to fire the notification or a number in Unix epoch time. Example: (new Date()).getTime() + 1000 is one second from now.
+//     repeat: 'repeat'
+//   };
+
+// function createNotification () {
+//   return {
+//     title: 'Log your stats!',
+//     body: "👋 don't forget to log your stats for today!",
+//     ios: {
+//       sound: true,
+//     },
+//     android: {
+//       sound: true,
+//       priority: 'high',
+//       sticky: false,
+//       vibrate: true,
+//     }
+//   }
+// }
+
+// export function setLocalNotification() {
+//     let result =    
+//   Permissions.askAsync(Permissions.NOTIFICATIONS);
+//   if (Constants.lisDevice && resut.status === 'granted') {
+//    console.log('Notification permissions granted.')
+//   }
+//     Notifications.scheduleLocalNotificationAsync(createNotification, schedulingOptions);
+
+// }
