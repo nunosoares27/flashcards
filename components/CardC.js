@@ -4,6 +4,7 @@ import { withRouter} from 'react-router-native'
 import {connect} from 'react-redux'
 import { bindActionCreators} from 'redux'
 import { getDecksAPI } from './actions/actionsCreators'
+import {clearLocalNotification} from '../utils/api'
 import { Font, AppLoading } from "expo";
 import { Container, Header, Content, Text, Left, Body, Title, Right, Card, CardItem, Button, Icon, } from 'native-base';
 
@@ -146,6 +147,7 @@ export class CardC extends Component {
 
 
         if(questionNumber === decks[deck].questions.length){
+            clearLocalNotification()
             const QuestionPercentage = 100 / decks[deck].questions.length
             const AnswerPercentage = Math.floor(this.state.correct * QuestionPercentage)
             console.log(QuestionPercentage)

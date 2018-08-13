@@ -10,7 +10,7 @@ import Deck from './components/Deck'
 import Tabs from './components/Tabs'
 import CardC from './components/CardC'
 import CreateCard from './components/CreateCard'
-// import {setLocalNotification} from './utils/api'
+import {setLocalNotification} from './utils/api'
 import { Notifications, Permissions } from 'expo'
 
 export default class App extends React.Component {
@@ -19,39 +19,68 @@ export default class App extends React.Component {
   let result = await   
   Permissions.askAsync(Permissions.NOTIFICATIONS);
   if (Constants.isDevice && result.status === 'granted') {
-   console.log('Notification permissions granted.')
+   return setLocalNotification()
+// console.log(result.status)
   }
+ //  setLocalNotification
 }
   
   render() {
 
-    let t = new Date();
-    t.setSeconds(t.getSeconds() + 10);
-  const schedulingOptions = {
-    time: t, 
-    repeat: 'hour'
-  };
+//     // let t = new Date();
+//     // t.setSeconds(t.getSeconds() + 10);
+//     let tomorrow = new Date()
+//             //  tomorrow.setDate(tomorrow.getDate() + 1)
+//        tomorrow.setDate(tomorrow.getDate())
+//        tomorrow.setHours(18)
+//        tomorrow.setMinutes(6)
+ 
+//       console.log(tomorrow)
+//   const schedulingOptions = {
+//     time: tomorrow, 
+//     repeat: 'hour'
+//   };
 
-  const localNotification = {
-    title: 'You dont\' study today!!! ',
-    body: 'Study is very important for your future!!!', // (string) — body text of the notification.
-    ios: { // (optional) (object) — notification configuration specific to iOS.
-      sound: true // (optional) (boolean) — if true, play a sound. Default: false.
-    },
-android: // (optional) (object) — notification configuration specific to Android.
-    {
-      sound: true, // (optional) (boolean) — if true, play a sound. Default: false.
-      //icon (optional) (string) — URL of icon to display in notification drawer.
-      //color (optional) (string) — color of the notification icon in notification drawer.
-      priority: 'high', // (optional) (min | low | high | max) — android may present notifications according to the priority, for example a high priority notification will likely to be shown as a heads-up notification.
-      sticky: false, // (optional) (boolean) — if true, the notification will be sticky and not dismissable by user. The notification must be programmatically dismissed. Default: false.
-      vibrate: true // (optional) (boolean or array) — if true, vibrate the device. An array can be supplied to specify the vibration pattern, e.g. - [ 0, 500 ].
-      // link (optional) (string) — external link to open when notification is selected.
-    }
-  };
-Notifications.cancelAllScheduledNotificationsAsync();
-  Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
+//   const localNotification = {
+//     title: 'You dont\' had study today!!! why',
+//     body: 'Study is very important for your future!!!', 
+//     ios: { 
+//       sound: true 
+//     },
+// android: 
+//     {
+//       sound: true, 
+//       priority: 'high', 
+//       sticky: false, 
+//       vibrate: true
+//     }
+//   };
+//    Notifications.cancelAllScheduledNotificationsAsync();
+//     Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
 
+
+ 
+//   const schedulingOptions = {
+//     time: t, 
+//     repeat: 'hour'
+//   };
+
+//   const localNotification = {
+//     title: 'You dont\' had study today!!! ',
+//     body: 'Study is very important for your future!!!', 
+//     ios: { 
+//       sound: true 
+//     },
+// android: 
+//     {
+//       sound: true, 
+//       priority: 'high', 
+//       sticky: false, 
+//       vibrate: true
+//     }
+//   };
+//    Notifications.cancelAllScheduledNotificationsAsync();
+//     Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
 
     const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(
       createStore

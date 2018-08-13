@@ -22,7 +22,6 @@ export class Deck extends Component {
     }
     
     render(){
-         console.log('state',this.props.decks)
          var items = ''
          
         return(
