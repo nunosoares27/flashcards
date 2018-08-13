@@ -22,9 +22,9 @@ export class ListDecks extends Component {
                   (
                     <List dataArray={this.props.decks}
             renderRow={(item) =>
-              <ListItem key={item} style={{ backgroundColor: 'white', flex: 1, marginLeft: 0, height: 200, 
+              <ListItem key={item} style={{ backgroundColor: item.background, flex: 1, marginLeft: 0, height: 200, 
               justifyContent: 'center',alignItems: 'center', }} onPress={() => this.props.history.push(`/deck/${item.title}`)} >
-                <Text style={{fontSize: 20, fontWeight: 'bold' }}>{item.title} ({item.questions.length} Decks)</Text>  
+                <Text style={{fontSize: 20, fontWeight: 'bold', color: '#BDC3C7' }}>{item.title} ({item.questions.length} Decks)</Text>  
               </ListItem>
             }>
           </List>

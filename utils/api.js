@@ -7,6 +7,7 @@ const NOTIFICATION_KEY = 'flashcards: notifications'
 const initialData = {
     Redux: {
         title: 'Redux',
+        background: '#013243',
         questions: [
             {
             question: 'Redux is great for mutating the state?',
@@ -27,6 +28,7 @@ const initialData = {
     },
    Javascript: {
        title: 'Javascript',
+       background: '#8E44AD',
         questions: [
             {
             question: 'In ES5 you can use arrow functions?',
@@ -42,6 +44,7 @@ const initialData = {
     },
     CSS: {
         title: 'CSS',
+        background: '#4183D7',
         questions: [
             {
                 question: 'CSS is used to styling web components?',
@@ -57,7 +60,7 @@ export const getData = () => {
 }
  
 export function getDecks(){
-  // return AsyncStorage.clear() // use this to clear AsyncStorage
+   // return AsyncStorage.clear() // use this to clear AsyncStorage
     return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
         .then(results => {
             if(results === null) {
@@ -69,10 +72,11 @@ export function getDecks(){
         })
 } 
 
-export function saveDeckTitle(title) {
+export function saveDeckTitle(title, background) {
     return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
         [title]: {
             title: title,
+            background: background,
             questions: []
         }
     }))
