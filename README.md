@@ -4,6 +4,8 @@ This is the third project for the [React Nanodegree](https://www.udacity.com/cou
 
 It allows users to study collections of flashcards. The app will allow users to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks. There's some validations on the data before submit, to make sure theres some data. Everytime the user enter's the app, the notification is set for the next day. If the user pass one day without study, it receives one notification.
 
+When creating a new Deck, there's a script that generates a random color for the Deck.
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 ## Available Scripts
