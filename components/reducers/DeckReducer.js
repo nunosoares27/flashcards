@@ -13,18 +13,22 @@ const DeckReducer = (state = [], action) => {
           questions: []
         }
       };
-      case ADD_CARD:
-        const {question, answer, deck, correctAnswer} = action.payload.data
-        return {
-            ...state,
-            [deck]: {
-                ...state[deck],
-                questions: [...state[deck].questions,
-                {
-                    question, answer, correctAnswer
-                }]
+    case ADD_CARD:
+      const { question, answer, deck, correctAnswer } = action.payload.data;
+      return {
+        ...state,
+        [deck]: {
+          ...state[deck],
+          questions: [
+            ...state[deck].questions,
+            {
+              question,
+              answer,
+              correctAnswer
             }
+          ]
         }
+      };
 
     default:
       return state;
