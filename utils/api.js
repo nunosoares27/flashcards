@@ -131,6 +131,6 @@ export function setLocalNotification() {
 
   Notifications.scheduleLocalNotificationAsync(createNotification(), {
     time: tomorrow,
-    repeat: "minute"
+    repeat: "day"
   });
 }
